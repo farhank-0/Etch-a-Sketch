@@ -1,0 +1,30 @@
+* {
+    box-sizing: border-box;
+    padding: 0px;
+    margin: 0px;
+}
+
+.title {
+    display: flex;
+    font-size: large;
+    justify-content: center;
+    align-items: center;
+    margin: 25px;
+}
+
+.container {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+.grid {
+    display: grid;
+    width: 1000px;
+    height: 1000px;
+    border: solid black;
+}
+
+.grid-element {
+    border: 0.5px solid lightgray;
+}
