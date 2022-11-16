@@ -28,3 +28,7 @@
 .grid-element {
     border: 0.5px solid lightgray;
 }
+
+.colour {
+    background-color: black;
+}
