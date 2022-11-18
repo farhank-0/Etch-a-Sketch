@@ -12,14 +12,18 @@ colourBtn.onclick = () => setMode('colour');
 randomBtn.onclick = () => setMode('random');
 eraserBtn.onclick = () => setMode('eraser');
 clearBtn.onclick = () => reloadGrid();
-sizeValue.onmousemove = (e) => updateSizeValue(e.target.value);
+sizeSlider.onmousemove = (e) => updateSizeValue(e.target.value);
 sizeSlider.onchange = (e) => changeSize(e.target.value);
 
 
 let mode = 'colour';
 let size = 16;
 let colour = '#000000';
-let mouseDown = false;
+let mouseDown = true;
+
+window.onload = () => {
+    setupGrid(size);
+}
 
 function setMode(newMode) {
     mode = newMode;
@@ -29,14 +33,14 @@ function setColour(newColour) {
     colour = newColour;
 }
 
-function updateSizeValue(size) {
-    sizeValue.textContent = `${size} X ${size}`;
+function updateSizeValue(newSize) {
+    sizeValue.textContent = `${newSize} X ${newSize}`;
 }
 
 function changeSize(newSize) {
     size = newSize;
-    reloadGrid();
-    updateSizeValue(newSize);
+    updateSizeValue(size);
+    reloadGrid(size);
 }
 
 function reloadGrid() {
@@ -51,15 +55,27 @@ function setupGrid(size) {
     for(let i=0; i< size*size; i++) {
         const gridElement = document.createElement('div');
         gridElement.classList.add('grid-element');
-        gridElement.addEventListener("mousedown", () => mouseDown = true);
-        gridElement.addEventListener("mouseup", () => mouseDown = false);
+        gridElement.addEventListener("mousedown", () => mouseDown = false);
+        gridElement.addEventListener("mouseup", () => mouseDown = true);
         gridElement.addEventListener("mousemove", changeColour);
         grid.appendChild(gridElement);
     }
 }
 
 function changeColour(e) {
-    if (mouseDown && e.type === 'mousemove'){
+    if (mouseDown && e.type === 'mousemove') {
+        return
+    }
+    if (mode === 'colour') {
         e.target.style.backgroundColor = colour;
+    }
+    if (mode === 'random') {
+        const R = Math.floor(Math.random() * 256);
+        const G = Math.floor(Math.random() * 256);
+        const B = Math.floor(Math.random() * 256);
+        e.target.style.backgroundColor = `rgb(${R}, ${G}, ${B})`;
+    }
+    if (mode === 'eraser') {
+        e.target.style.backgroundColor = '#FFFFFF';
     }
 }
