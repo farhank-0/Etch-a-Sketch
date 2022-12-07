@@ -76,6 +76,6 @@ function changeColour(e) {
         e.target.style.backgroundColor = `rgb(${R}, ${G}, ${B})`;
     }
     if (mode === 'eraser') {
-        e.target.style.backgroundColor = '#FFFFFF';
+        e.target.style.backgroundColor = '#DFD3C3'
     }
 }
